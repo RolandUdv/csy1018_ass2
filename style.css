@@ -413,7 +413,7 @@ opacity: 0.7;
   background-image: linear-gradient(to bottom, #3498db, #2980b9);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
-  border-radius: 28px;
+  border-radius: 15px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
@@ -445,9 +445,32 @@ opacity: 0.7;
 label, input, select {float:  left; display: block; width: 8vw; margin-bottom: 0.5vh;}
 label {clear: left;}
 
-#results {width: auto; position: absolute; margin-top: 8vh; margin-left: 48vw;}
-#results td {height: 30px; width: 30px; background-repeat: no-repeat; background-position: 0px -64px;}
-#results .horse1 { background-image: url(images/head0.png);}
-#results .horse2 {  background-image: url(images/head4.png);}
-#results .horse3 {  background-image: url(images/head1.png);}
-#results .horse4 {  background-image: url(images/head2.png);}
+#results {
+	width: auto; 
+	position: absolute; 
+	margin-top: 9vh; 
+	margin-left: 48vw;
+}
+
+#results td {
+	height: 30px; 
+	width: 30px; 
+	background-repeat: no-repeat; 
+	background-position: 0px -64px;
+}
+
+#results .horse1 { 
+	background-image: url(images/head0.png);
+}
+
+#results .horse2 {  
+	background-image: url(images/head4.png);
+}
+
+#results .horse3 {  
+	background-image: url(images/head1.png);
+}
+
+#results .horse4 {  
+	background-image: url(images/head2.png);
+}
