@@ -20,6 +20,9 @@ function textBoxPopup () {
     }
 }
 
+function horse(){
+
+}
 
 
 
@@ -63,11 +66,9 @@ function textBoxPopup () {
 
 
 
-/*function horse(){
 
-}
 
-function head(){
+/*function head(){
     var elements = document.getElementsByClassName('head');
     elements[0].style.backgroundImage = 'url(images/' + this.id + '.png)';
 }
