@@ -10,6 +10,7 @@ All Rights Reserved - Credits given to their representative authors.
 		<title>Horse Racing Game</title>
 		<link rel="stylesheet" href="style.css" />
 		<script type="text/javascript" src="script.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
 
 	<body>
@@ -17,54 +18,54 @@ All Rights Reserved - Credits given to their representative authors.
 		<div id="horse1" class="horse standRight">
 			<div class="rider">
 				<div class="head">
-				</div>
+				</div> <!--Close Head-->
 
 				<div class="body">
-				</div>
-			</div>
-		</div>
+				</div> <!--Close Body-->
+			</div> <!--Close Rider-->
+		</div> <!--Close horse1-->
 
 		<div id="horse2" class="horse standRight">
 			<div class="rider">
 				<div class="head">
-				</div>
+				</div> <!--Close Head-->
 
 				<div class="body">
-				</div>
-			</div>
-		</div>
+				</div> <!--Close Body-->
+			</div> <!--Close Rider-->
+		</div> <!--Close horse2-->
 
 		<div id="horse3" class="horse standRight">
 			<div class="rider">
 				<div class="head">
-				</div>
+				</div> <!--Close Head-->
 
 			<div class="body">
-				</div>
-			</div>
-		</div>
+				</div> <!--Close Body-->
+			</div> <!--Close Rider-->
+		</div> <!--Close horse3-->
 
 		<div id="horse4" class="horse standRight">
 			<div class="rider">
 				<div class="head">
-				</div>
+				</div> <!--Close Head-->
 
 				<div class="body">
-				</div>
-			</div>
-		</div>
+				</div> <!--Close Body-->
+			</div> <!--Close Rider-->
+		</div><!--Close horse4-->
 
 		<div class="track">
 			<div id="startline">
 
-			</div>
+			</div> <!--Close startline-->
 			<div class="inner">
-				<button id="start" type="button" onclick="textBoxPopup()">Start Race</button>
+				<button id="start" type="button">Start Race</button>
 
 				<div id="bet">
 					<p>You currently have <span id="funds">100</span></p>
 					<label>Bet Amount  (£)</label>
-					<input id="amount" type="number" value=""/>
+					<input id="amount" type="number" value="5"/>
 					<label>Bet on horse:</label>
 					<select id="bethorse">
 						<option value="horse1">White</option>
@@ -72,7 +73,7 @@ All Rights Reserved - Credits given to their representative authors.
 						<option value="horse2">Green</option>
 						<option value="horse2">Brown</option>
 					</select>
-				</div>
+				</div> <!--Close bet-->
 
 				<img src="images/tree.png" class="tree" />
 
@@ -99,12 +100,10 @@ All Rights Reserved - Credits given to their representative authors.
 					<td>4th</td>
 					<td class="result-horse4"></td>
 				</tr>
-			</table>
-</div>
+			</table> <!--Close table-->
+</div> <!--Close inner-->
 
-		</div>
-
-
+		</div> <!--Close track-->
 
 	</body>
 </html>
