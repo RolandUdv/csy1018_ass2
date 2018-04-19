@@ -4,26 +4,8 @@ Assignment 2 - CSY1018
 All Rights Reserved - Credits given to their representative authors.
 ----------------------------------------*/
 
-/* ----------VARIABLES---------- */
-//Bet Variables
-var betAmount = 0;
-var funds = 100;
-var left = 0;
-
-var hor = 0;
-var ver = -128;
-var end = 1200;
-
-/*var interval = [];
-var clear = [];
-var direction = [];
-
-var mapWidth;
-var mapHeight;
-var line;*/
-
 //Pop up notification to validate bet
-function betValidation() {
+/*function betValidation() {
 
   betAmount = document.getElementById("amount").value;
 
@@ -33,189 +15,197 @@ function betValidation() {
     } else {
         //alert("Insufficent funds!");
         console.log("Race Started");
-        startRace();
+    }
+}*/
+
+
+var funds = 100;
+
+var finishedHorseCount = 0;
+
+function startRace() {
+    document.getElementById("start").addEventListener("click", horseAction);
+
+}
+
+
+
+function raceFinished(horse)
+{
+    finishedHorseCount++;
+    resultBoard = document.getElementsByClassName('result-horse'+finishedHorseCount)[0];     
+    resultBoard.className = 'result-horse'+finishedHorseCount+' '+horse.id;
+
+    if(finishedHorseCount == 1)
+    {
+        if( horse. id == document.getElementById("bethorse").value)
+        {
+            funds += document.getElementById("amount").value * 2;
+        }
+        else
+        {
+            funds -= document.getElementById("amount").value ; 
+        }
+
+        document.getElementById("funds").innerHTML = funds;
+
+        console.log("Funds: "+funds);
+    }
+    if(finishedHorseCount == 4)
+    {
+        setUIActive(true);        
     }
 }
 
-function timer(){
-
+function clearLeaderBoard()
+{
+  finishedHorseCount = 0;    
+  for(i = 1; i<=4; i++)
+  {
+    resultBoard = document.getElementsByClassName('result-horse'+i)[0];     
+    resultBoard.className = 'result-horse'+i;
+  }   
 }
 
-
-
-
-
-function startRace() {
-    //betValidation();
-    //document.getElementById("start").addEventListener("click", horseLeft);
-    document.getElementById("start").addEventListener("click", horseAction);
-    horseAction();
-    interval = setInterval(horseAction, 5);
-    //horseLeft();
+function setUIActive(active)
+{
+    document.getElementById("start").disabled = !active;
+    document.getElementById("amount").disabled = !active;
+    document.getElementById("bethorse").disabled = !active;
 }
 
 
 function horseAction() {
+
+    setUIActive(false);
+    clearLeaderBoard();
+
     var horse1 = document.getElementById('horse1');
+    horse1.position = {x: 20, y: 68 };    
+
     var horse2 = document.getElementById('horse2');
+    horse2.position = {x: 20, y: 72 };
+
     var horse3 = document.getElementById('horse3');
+    horse3.position = {x: 20, y: 76 };
+
     var horse4 = document.getElementById('horse4');
+    horse4.position = {x: 20, y: 80 };
 
+    horse1.interval = setInterval(function(){move(horse1, Math.random()*1)}, 20) //3
+    horse2.interval = setInterval(function(){move(horse2, Math.random()*1)}, 20)
+    horse3.interval = setInterval(function(){move(horse3, Math.random()*1)}, 20)
+    horse4.interval = setInterval(function(){move(horse4, Math.random()*1)}, 20)
+}
 
-    if(horse1.offsetTop == -128 && horse1.offsetLeft < 1200){
-        horse1.className = "horse runRight"
-        horse1.style.left = horse1.offsetLeft + 1 + 'px';
-    }else if(horse1.offsetLeft ==1200 && horse1.offsetTop > 50){
-        horse1.className = "horse runUp"
-        horse1.style.top = horse1.offsetTop - 1 + 'px';
-    }else if(horse1.offsetTop == 50 && horse1.offsetLeft > 150){
-        horse1.className = "horse runLeft"
-        horse1.style.left = horse1.offsetLeft - 1 + 'px';
+function move(horse, speed)
+{
+
+    var winWidth = window.innerWidth;
+    var winHeight = window.innerHeight;
+
+    if(horse.position == null)
+    {
+        horse.position = {
+            x: (horse.offsetLeft/winWidth)*100 ,
+            y: (horse.offsetTop/winHeight)*100 
+        };
     }
 
-    /*if(horse1.offsetLeft < 1200 || horse1.offsetTop == -128){
-        horse1.className = "horse runRight";
-        horse1.style.left = horse1.offsetLeft + 1 + 'px';
-        console.log("Go right");
-    }else if(horse1.offsetLeft < 1200 || horse1.offsetTop > 50){
-        horse1.className = "horse runUp";
-        horse1.style.top = horse1.offsetTop - 1 + 'px';
-        console.log("Go up");
-    }else if(horse1.offsetTop == 50 || horse1.offsetLeft >= 300){
-        horse1.className = "horse runLeft";
-        var positionLeft = horse1.offsetLeft;
-        horse1.style.left = horse1.positionLeft - 1 + 'px';
-        positionLeft--;
-        console.log("Go left");
-    }*/
+    horsePosition = horse.position;
+ 
+
+    var horseOrient = horse.className.split(" ")[1];
+
+    switch(horseOrient)
+    {
+        case "standRight":
+        {
+            horse.className = 'horse runRight';
+            
+        }
+        break;
+        case "runRight":
+        {
+        
+                horsePosition.x+=speed;        
+                setHorsePosition(horse, horsePosition);                
+                if(horsePosition.x>=80)
+                {
+                    //if((Math.random() * 10) > (85-horsePosition.x))
+                    {
+                        horse.className = 'horse runUp';
+                    }
+                }            
+
+                if(horse.finish != null)
+                {                    
+                    if(horse.finish == 1 && horsePosition.x >= 25)
+                    {
+                        raceFinished(horse);
+                        horse.finish = 2;
+                    }
+                    if(horse.finish == 2 && horsePosition.x >= 30)
+                    {
+                        clearInterval(horse.interval);
+                        horse.className = 'horse standRight';     
+                        horse.finish = null;                                       
+                    }
+                }
+            
+        }
+        break;
+        case "runUp":
+        {                                
+                horsePosition.y-=speed;        
+                setHorsePosition(horse, horsePosition);            
+                if(horsePosition.y<=10)
+                {
+                    //if((Math.random() * 10) > 15-horsePosition.y)
+                    {   
+                        horse.className = 'horse runLeft';
+                    }
+            }
+        }
+        break;
+        case "runLeft":
+        {
+        
+                horsePosition.x-=speed;        
+                setHorsePosition(horse, horsePosition);
+                if(horsePosition.x<=10)
+                {
+                //    if((Math.random() * 10) > (horsePosition.x-5))
+                    {
+                        horse.className = 'horse runDown';
+                    }
+            }            
+            
+        }
+        break;
+        case "runDown":
+        {                                
+                horsePosition.y+=speed;        
+                setHorsePosition(horse, horsePosition);            
+                if(horsePosition.y>=70)
+                {
+                    //if((Math.random() * 10) > 75-horsePosition.y)
+                    {   
+                        horse.className = 'horse runRight';
+                        horse.finish = 1;
+                    }
+            }
+        }
+        break;
+    }
+
     
 
-
-
-
-
-    /*if(horse2.offsetLeft < 1200){
-        horse2.className = "horse runRight";
-        horse2.style.left = horse2.offsetLeft + 50 + 'px';
-    }else if(horse2.offsetLeft < 1200 || horse2.offsetTop < 600){
-        horse2.className = "horse runUp";
-        horse2.style.top = horse2.offsetTop - 50 + 'px';
-    }else if(horse2.offsetLeft == 1200 && horse2.offsetTop == 500){
-        horse2.className = "horse runLeft";
-        horse2.style.left = horse2.offsetLeft - 50 + 'px';
-    }
-
-    if(horse3.offsetLeft < 1200){
-        horse3.className = "horse runRight";
-        horse3.style.left = horse3.offsetLeft + 50 + 'px';
-    }else if(horse3.offsetLeft < 1200 || horse3.offsetTop < 600){
-        horse3.className = "horse runUp";
-        horse3.style.top = horse3.offsetTop - 50 + 'px';
-    }else if(horse3.offsetLeft == 1200 && horse3.offsetTop == 500){
-        horse3.className = "horse runLeft";
-        horse3.style.left = horse3.offsetLeft - 50 + 'px';
-    }
-
-    if(horse4.offsetLeft < 1200){
-        horse4.className = "horse runRight";
-        horse4.style.left = horse4.offsetLeft + 50 + 'px';
-    }else if(horse4.offsetLeft < 1200 || horse4.offsetTop < 600){
-        horse4.className = "horse runUp";
-        horse4.style.top = horse4.offsetTop - 50 + 'px';
-    }else if(horse4.offsetLeft == 1200 && horse4.offsetTop == 500){
-        horse4.className = "horse runLeft";
-        horse4.style.left = horse4.offsetLeft - 50 + 'px';
-    }*/
-
-
-    //var horse = document.getElementById("horse");
-    //var horse = document.getElementsByClassName("horse");
-    //horse.className = "horse runRight";
-    //var positionLeft = horse.offsetLeft;
-    //horse.style.left = positionLeft + 1 + 'px';
-
-    //var horse = document.getElementsByClassName("horse");
-    //var speed = Math.ceil(Math.random() * 4 + 6);
-    //var positionLeft = horse.offsetLeft;
-    //var positionTop = horse.offsetTop;
-
-    //horse.className = "horse runRight";
-    //horse.style.left = left + 1 + "px";
-    //left++;*/
-
-
-
-  //var speed = Math.ceil(Math.random() * 4 + 6);
-  //var positionTop = horse.offsetTop;
-  //var positionLeft = horse.offsetLeft;
-  //horse.style.left = positionLeft - 50+'px';
-  //horse.style.left = window.innerWidth * 0.18 + 'px';
-
 }
 
-function myLoadFunction() {
-  var startButton = document.getElementById("start");
-  startButton.addEventListener('click', betValidation);
+function setHorsePosition(horse, position)
+{
+    horse.style.left = position.x + 'vw';
+    horse.style.top = position.y + 'vh';
+
 }
-
-document.addEventListener('DOMContentLoaded', myLoadFunction);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*function head(){
-    var elements = document.getElementsByClassName('head');
-    elements[0].style.backgroundImage = 'url(images/' + this.id + '.png)';
-}
-
-function myLoadFunction(){
-    var element = document.getElementById('head0');
-    element.addEventListener('click', clickHead);
-
-    var element = document.getElementById('head1');
-     element.addEventListener('click', clickHead);
-
-    var element = document.getElementById('head2');
-    element.addEventListener('click', clickHead);
-
-    var element = document.getElementById('head3');
-    element.addEventListener('click', clickHead);
-
-    var element = document.getElementById('head4');
-    element.addEventListener('click', clickHead);
-}
-
-function body(){
-
-}*/
