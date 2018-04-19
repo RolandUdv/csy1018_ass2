@@ -24,6 +24,7 @@ var funds = 100;
 var finishedHorseCount = 0;
 
 function startRace() {
+    
     document.getElementById("start").addEventListener("click", horseAction);
 
 }
