@@ -4,33 +4,36 @@ Assignment 2 - CSY1018
 All Rights Reserved - Credits given to their representative authors.
 ----------------------------------------*/
 
-//Pop up notification to validate bet
+/* ----------BET VALIDATION---------- */
 /*function betValidation() {
 
   betAmount = document.getElementById("amount").value;
 
   if (isNaN(betAmount) || betAmount < 1 || betAmount > 100) {
+
     alert("The bet amount is not valid. Enter a number between 1-100!");
+
     console.log("The bet amount is not valid. Enter a number between 1-100!");
-    } else {
-        //alert("Insufficent funds!");
+    }
+    else
+    {
+        alert("Insufficent funds!");
+
         console.log("Race Started");
     }
 }*/
 
-
+/* ----------VARIABLES---------- */
 var funds = 100;
-
 var finishedHorseCount = 0;
 
+/* ----------Start race---------- */
 function startRace() {
-    
     document.getElementById("start").addEventListener("click", horseAction);
-
 }
 
 
-
+/* ----------Funds methods---------- */
 function raceFinished(horse)
 {
     finishedHorseCount++;
@@ -58,6 +61,7 @@ function raceFinished(horse)
     }
 }
 
+/* ----------Clear leaderboard---------- */
 function clearLeaderBoard()
 {
   finishedHorseCount = 0;    
@@ -75,7 +79,7 @@ function setUIActive(active)
     document.getElementById("bethorse").disabled = !active;
 }
 
-
+/* ----------Set speed and horse position---------- */
 function horseAction() {
 
     setUIActive(false);
@@ -99,6 +103,7 @@ function horseAction() {
     horse4.interval = setInterval(function(){move(horse4, Math.random()*1)}, 20)
 }
 
+/* ----------Horse movement on track---------- */
 function move(horse, speed)
 {
 
@@ -204,6 +209,7 @@ function move(horse, speed)
 
 }
 
+/* ----------Horse positioning---------- */
 function setHorsePosition(horse, position)
 {
     horse.style.left = position.x + 'vw';
